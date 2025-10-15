@@ -1,3 +1,4 @@
+import 'package:aplikasi_sewa_lapangan/history.dart';
 import 'package:aplikasi_sewa_lapangan/package_duration.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,6 +89,12 @@ class _HomeState extends State<Home> {
           color: Colors.black
         )),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => History()));
+          },
+              icon: Icon(Icons.history, color: Colors.black))
+        ],
       ),
 
       body: ListView.builder(

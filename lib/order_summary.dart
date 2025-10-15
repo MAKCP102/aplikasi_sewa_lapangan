@@ -212,7 +212,8 @@ class OrderSummary extends StatelessWidget {
                       courtName: courtName,
                       duration: duration,
                       totalPrice: totalPrice,
-                      pricePerHour: pricePerHour
+                      pricePerHour: pricePerHour,
+                      grandTotal: grandTotal,
                     )
                     ));
               },

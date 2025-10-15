@@ -1,6 +1,8 @@
+import 'package:aplikasi_sewa_lapangan/receipt.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final formatter = NumberFormat.currency(
     locale: 'id_id',
@@ -13,13 +15,17 @@ class QrisPayment extends StatelessWidget {
   final int totalPrice;
   final int pricePerHour;
   final String courtName;
+  final String paymentMethod;
+  final int grandTotal;
 
   const QrisPayment({
     super.key,
     required this.courtName,
     required this.duration,
     required this.totalPrice,
-    required this.pricePerHour
+    required this.pricePerHour,
+    required this.paymentMethod,
+    required this.grandTotal
   });
 
   @override
@@ -54,7 +60,7 @@ class QrisPayment extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(formatter.format(totalPrice), style: GoogleFonts.poppins(
+                Text(formatter.format(grandTotal), style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w700,
                   fontSize: 30,
                   color: Colors.black,
@@ -95,6 +101,53 @@ class QrisPayment extends StatelessWidget {
                   color: Colors.grey[700],
                 ))
               ]
+            ), SizedBox(height: 15),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Open your mobile banking or e-wallet app and scan the QR code above to complete your payment",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ]
+            ), SizedBox(height: 20),
+
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookingReceipt(
+                    courtName: courtName,
+                    duration: duration,
+                    totalPrice: totalPrice,
+                    pricePerHour: pricePerHour,
+                    grandTotal: grandTotal,
+                    paymentMethod: paymentMethod,
+                  )),
+                );
+              },
+              
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(FontAwesomeIcons.check, color: Colors.white),
+                  SizedBox(width: 15),
+                  Text("I Have Paid", style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: Colors.white
+                  ))
+                ],
+              ),
             )
           ]
         ),

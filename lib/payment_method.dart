@@ -1,4 +1,5 @@
 import 'package:aplikasi_sewa_lapangan/qris_payment.dart';
+import 'package:aplikasi_sewa_lapangan/receipt.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,13 +9,15 @@ class PaymentMethod extends StatelessWidget {
   final int duration;
   final int totalPrice;
   final int pricePerHour;
+  final int grandTotal;
 
   const PaymentMethod({
     super.key,
     required this.courtName,
     required this.duration,
     required this.totalPrice,
-    required this.pricePerHour
+    required this.pricePerHour,
+    required this.grandTotal
   });
 
   @override
@@ -57,7 +60,17 @@ class PaymentMethod extends StatelessWidget {
 
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                    MaterialPageRoute(builder: (context) => BookingReceipt(
+                        courtName: courtName,
+                        duration: duration,
+                        totalPrice: totalPrice,
+                        pricePerHour: pricePerHour,
+                        grandTotal: grandTotal,
+                        paymentMethod: "Cash",
+                    )
+                    ));
               },
                 child: Container(
                   // height: 86,
@@ -114,7 +127,9 @@ class PaymentMethod extends StatelessWidget {
                       courtName: courtName,
                       duration: duration,
                       totalPrice: totalPrice,
-                      pricePerHour: pricePerHour
+                      pricePerHour: pricePerHour,
+                      grandTotal: grandTotal,
+                      paymentMethod: "QRIS",
                     )
                     ));
               },
